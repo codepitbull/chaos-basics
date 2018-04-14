@@ -1,7 +1,4 @@
 #!/bin/bash
-for (( i=3; i<=$#; i+=1 ))
-do
-    arg="${arg} ${!i}"
-done
+IFS=', ' read -r -a array <<< "$1"
 
-echo "Narf $arg"
+echo "Narf ${array[$2]}"
