@@ -1,0 +1,44 @@
+---
+- hosts: all
+  gather_facts: False
+  become: true
+  tasks:
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  - name: install packages
+    apt: name={{item}} state=present
+    with_items:
+    - iproute2
+    - iptables
+    - wrk
+    - stress
+    - dsniff
+    - systemd
+#  - template:
+#      src: node.service
+#      dest: /etc/systemd/system/cockroach.service
+#      owner: root
+#      group: root
+#  - name: Extract cockroach
+#    unarchive:
+#      src: cockroach-v1.1.5.linux-amd64.tgz 
+#      dest: /opt
+#  - file:
+#      path: /opt/cockroach-v1.1.5.linux-amd64/
+#      owner: vagrant
+#      group: vagrant
+#      recurse: yes
+  - file:
+      path: /opt/data
+      owner: vagrant
+      group: vagrant
+      state: directory
+  - file:
+      path: /opt/logs
+      owner: vagrant
+      group: vagrant
+      state: directory
+#  - systemd:
+#      name: cockroach
+#      state: restarted
+#      enabled: True
