@@ -14,6 +14,7 @@
     - stress
     - dsniff
     - systemd
+    - openjdk-9-jre-headless
 #  - template:
 #      src: node.service
 #      dest: /etc/systemd/system/cockroach.service
