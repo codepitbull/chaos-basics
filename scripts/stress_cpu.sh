@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo stress --cpu $1 --timeout $2
+stress --cpu $1 --timeout $2

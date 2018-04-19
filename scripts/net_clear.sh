@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-tc qdisc delete dev eth1 root
+tc qdisc delete dev enp0s8 root

@@ -17,11 +17,11 @@ class HttpVerticle extends ScalaVerticle {
         router.get("/count").handler(req => {
             counter.incrementAndGetFuture()
             req.response().end("counted")
-          })
+          }).failureHandler(_ => ())
         router.get("/value").handler(req => counter.getFuture().onComplete{
           case Success(value) =>  req.response().end(value.toString)
           case Failure(t)     =>  req.fail(t)
-        })
+        }).failureHandler(_ => ())
 
         vertx
           .createHttpServer()
