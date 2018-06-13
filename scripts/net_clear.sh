@@ -8,4 +8,4 @@ if [[ $# -eq 0 ]] || [[ $# -eq 1  && $1=="--help-chaos" ]]
   exit 0
 fi
 
-tc qdisc delete dev $1 root
+tc qdisc delete dev $2 root

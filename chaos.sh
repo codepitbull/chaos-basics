@@ -22,4 +22,9 @@ do
     arg="${arg} ${!i}"
 done
 
+echo $joined
+echo $2
+echo $arg
+echo scripts/$2.sh $joined $arg
+
 ssh vagrant@${hosts[$1]} -q -i ~/.vagrant.d/insecure_private_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no -o IdentitiesOnly=yes "sudo bash -s" < scripts/$2.sh $joined $arg 

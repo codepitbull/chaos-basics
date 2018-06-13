@@ -8,4 +8,4 @@ if [[ $# -eq 0 ]] || [[ $# -eq 1  && $1=="--help-chaos" ]]
   exit 0
 fi
 #Config using FIFO adding a fixed delay of 100ms
-tc qdisc add dev $1 root netem delay $2
+tc qdisc add dev $2 root netem delay $3
