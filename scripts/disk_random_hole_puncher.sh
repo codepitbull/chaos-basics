@@ -1,11 +1,27 @@
 #!/bin/bash
+set -o nounset
+set -o errexit
+
+if [[ $# -eq 0 ]] || [[ $# -eq 1  && $1=="--help-chaos" ]]
+  then
+    printf "disk_random_hole_puncher: <size-in-k>"
+  exit 0
+fi
+
+#Create device with 128MB
+device='/dev/loop1'
+k_blocks=$2
+half_k_blocks=$((k_blocks*2))
+dd if=/dev/zero of=/tmp/error_random_holes.img bs=512 count=$half_k_blocks
+losetup $device /tmp/error_random_holes.img
+
 start_sector=0
 good_sector_size=0
 
-for sector in {0..1048576}; do
+for sector in {0..128000}; do
 
     if [[ ${RANDOM} == 0 ]]; then
-        echo "${start_sector} ${good_sector_size} linear /dev/loop0 ${start_sector}"
+        echo "${start_sector} ${good_sector_size} linear ${device} ${start_sector}"
         echo "${sector} 1 error"
         start_sector=$((${sector}+1))
         good_sector_size=0
@@ -14,5 +30,5 @@ for sector in {0..1048576}; do
     fi
 done
 
-echo "${start_sector} $((${good_sector_size}-1)) linear /dev/loop0 ${start_sector}"
+echo "${start_sector} $((${good_sector_size}-1)) linear ${device} ${start_sector}"
 

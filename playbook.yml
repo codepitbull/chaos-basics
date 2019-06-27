@@ -3,6 +3,11 @@
   gather_facts: False
   become: true
   tasks:
+  - name: add backports repository
+    apt_repository: repo='deb http://http.debian.net/debian stretch-backports main contrib non-free' state=present update_cache=yes
+  - name: Do a "apt-get update"
+    apt:
+      update_cache: yes
   - name: install python 2
     raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
   - name: install packages
@@ -14,7 +19,7 @@
     - stress
     - dsniff
     - systemd
-    - openjdk-9-jre-headless
+    - openjdk-11-jre-headless
 #  - template:
 #      src: node.service
 #      dest: /etc/systemd/system/cockroach.service

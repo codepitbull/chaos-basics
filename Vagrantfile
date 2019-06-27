@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
   
   config.vm.define "m1" do |m1|
-    m1.vm.box = "ubuntu/xenial64"
+    m1.vm.box = "sagepe/stretch"
     m1.vm.network "private_network", ip: NODE_1_IP
     m1.vm.provision :ansible do |ansible|
       ansible.playbook = "playbook.yml"
@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "m2" do |m2|
-    m2.vm.box = "ubuntu/xenial64"
+    m2.vm.box = "sagepe/stretch"
     m2.vm.network "private_network", ip: NODE_2_IP
     m2.vm.provision :ansible do |ansible|
       ansible.playbook = "playbook.yml"
@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "m3" do |m3|
-    m3.vm.box = "ubuntu/xenial64"
+    m3.vm.box = "sagepe/stretch"
     m3.vm.network "private_network", ip: NODE_3_IP
     m3.vm.provision :ansible do |ansible|
       ansible.playbook = "playbook.yml"

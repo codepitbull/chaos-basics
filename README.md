@@ -1,7 +1,7 @@
 git clone https://github.com/ntp-project/ntp.git
 cd ntp
 
-ntpver.in is currently missing in stbale, I added one from here:
+ntpver.in is currently missing in stable, I added one from here:
 https://github.com/dfc/ntp-mirror/blob/master/scripts/ntpver.in
 
 vi scripts/ntpver.in
@@ -15,7 +15,8 @@ vi scripts/ntpver.in
 ntpq -c "rv 0 daemon_version" $* | @AWK@ '/daemon_version/ { print $2 }'
 ```
 
-sudo apt-get install dpkg-dev libtool lynx automake autotools makei -y
+apt-get source ntp
+sudo apt-get install dpkg-dev libtool lynx automake autotools-dev make -y
 ./bootstrap
 ./configure --enable-simulator
 make
