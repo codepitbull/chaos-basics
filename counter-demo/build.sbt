@@ -12,7 +12,7 @@ libraryDependencies ++= Vector (
   Library.vertx_web,
   Library.scalaTest       % "test",
   // Uncomment for clustering
-  Library.vertx_hazelcast,
+  //  Library.vertx_hazelcast,
 
   //required to get rid of some warnings emitted by the scala-compile
   Library.vertx_codegen

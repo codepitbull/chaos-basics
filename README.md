@@ -1,6 +1,3 @@
-git clone https://github.com/ntp-project/ntp.git
-cd ntp
-
 ntpver.in is currently missing in stable, I added one from here:
 https://github.com/dfc/ntp-mirror/blob/master/scripts/ntpver.in
 
@@ -37,3 +34,30 @@ tcpkill
 dmsetup
 stress
 wrk
+
+#Notes
+tc qdisc show dev enp0s8
+
+#Demo
+java -jar /vagrant/shared/counter-demo-assembly-0.1-SNAPSHOT.jar --config /vagrant/shared/target-host1.json
+java -jar /vagrant/shared/counter-demo-assembly-0.1-SNAPSHOT.jar --config /vagrant/shared/target-host2.json
+
+./chaos.sh 1 net_delay enp0s8 100000 70000
+./chaos.sh 1 net_clear enp0s8
+./chaos.sh 1 net_delay_rate_limit enp0s8 10000
+./chaos.sh 1 net_clear enp0s8
+./chaos.sh 1 net_loss enp0s8 20
+./chaos.sh 1 disk_delay 30000000 500 500
+
+mount /dev/mapper/delay /mnt
+time touch /mnt/1
+
+badblocks -v /dev/mapper/error
+
+badblocks -v /dev/mapper/stretch--vg-root
+Checking blocks 0 to 32776191
+Checking for bad blocks (read-only test): done
+Pass completed, 0 bad blocks found. (0/0/0 errors)
+
+#TODO
+- Use *change* for tc if roort already exists to allow stacking and changing of values.

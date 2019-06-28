@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#  All skripts will be executed like this: <skript-name> <args> <concatenated list of hosts>
+
 hosts=(null "192.168.6.2" "192.168.6.3" "192.168.6.4")
 joined=$(printf ",%s" "${hosts[@]}")
 joined=${joined:1}
@@ -21,10 +23,6 @@ for (( i=3; i<=$#; i+=1 ))
 do
     arg="${arg} ${!i}"
 done
+echo "executing: scripts/$2.sh $arg $joined on ${hosts[$1]}"
 
-echo $joined
-echo $2
-echo $arg
-echo scripts/$2.sh $joined $arg
-
-ssh vagrant@${hosts[$1]} -q -i ~/.vagrant.d/insecure_private_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no -o IdentitiesOnly=yes "sudo bash -s" < scripts/$2.sh $joined $arg 
+ssh vagrant@${hosts[$1]} -q -i ~/.vagrant.d/insecure_private_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no -o IdentitiesOnly=yes "sudo bash -s" < scripts/$2.sh $arg $joined

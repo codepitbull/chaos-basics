@@ -10,9 +10,9 @@ fi
 
 device='/dev/ram0'
 #create a RAM disk
-modprobe brd rd_nr=1 rd_size=$2
-readdelay=$3
-writedelay=$4
+modprobe brd rd_nr=1 rd_size=$1
+readdelay=$2
+writedelay=$3
 size=$(blockdev --getsize $device) # Size in 512-bytes sectors
 mkfs.ext4 $device
 echo -e '0 '$size' delay '$device' 0 '$readdelay' '$device' 0 '$writedelay | dmsetup create delay

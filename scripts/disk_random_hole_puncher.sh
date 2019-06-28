@@ -10,7 +10,7 @@ fi
 
 #Create device with 128MB
 device='/dev/loop1'
-k_blocks=$2
+k_blocks=$1
 half_k_blocks=$((k_blocks*2))
 dd if=/dev/zero of=/tmp/error_random_holes.img bs=512 count=$half_k_blocks
 losetup $device /tmp/error_random_holes.img
